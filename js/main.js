@@ -4,23 +4,14 @@ function getRandomIntInclusive(min, max) { // https://developer.mozilla.org/ru/d
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function getRandomInteger(minValue, maxValue) {
-
+const getRandomInteger = (minValue, maxValue) => {
   minValue = (minValue < 0) ? Math.abs(minValue) : minValue;
   maxValue = (maxValue < 0) ? Math.abs(maxValue) : maxValue;
 
-  if (minValue > maxValue) {
-    const swap = minValue;
-    minValue = maxValue;
-    maxValue = swap;
-  }
+  maxValue = (minValue > maxValue) ? [minValue, minValue = maxValue][0] : maxValue;
 
-  if (minValue === maxValue) {
-    return Math.ceil(minValue);
-  }
-
-  return getRandomIntInclusive(minValue, maxValue);
-}
+  return (minValue === maxValue) ? Math.ceil(minValue) : getRandomIntInclusive(minValue, maxValue);
+};
 
 getRandomInteger(8, 15);
 
