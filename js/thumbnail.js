@@ -1,4 +1,4 @@
-import {getPostsArray, POSTS_COUNT} from './data.js';
+import { posts } from './data.js';
 
 const thumbnailTemplate = document.querySelector('#picture').content.querySelector('.picture');
 const photoContainer = document.querySelector('.pictures');
@@ -16,7 +16,5 @@ const generateThumbs = function (postsCollection) {
 
   photoContainer.appendChild(thumbnailAlbum);
 };
-
-const posts = getPostsArray(POSTS_COUNT);
 
 generateThumbs(posts);

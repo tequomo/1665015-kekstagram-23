@@ -73,4 +73,6 @@ const createPost = (currentIndex) => ({
 
 const getPostsArray = (amount) => new Array(amount).fill(null).map((_, index) => createPost(index));
 
-export { getPostsArray, POSTS_COUNT };
+const posts = getPostsArray(POSTS_COUNT);
+
+export { posts };
