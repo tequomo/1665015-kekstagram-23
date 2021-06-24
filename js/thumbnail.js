@@ -3,7 +3,7 @@ import { posts } from './data.js';
 const thumbnailTemplate = document.querySelector('#picture').content.querySelector('.picture');
 const photoContainer = document.querySelector('.pictures');
 
-const generateThumbs = function (postsCollection) {
+const generateThumbs = (postsCollection) => {
   const thumbnailAlbum = document.createDocumentFragment();
 
   postsCollection.forEach((post) => {
