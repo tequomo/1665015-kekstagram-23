@@ -18,3 +18,5 @@ const generateThumbs = (postsCollection) => {
 };
 
 generateThumbs(posts);
+
+export {photoContainer};

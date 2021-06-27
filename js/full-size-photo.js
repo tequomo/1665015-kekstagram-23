@@ -1,4 +1,4 @@
-import { posts } from './data.js';
+import './data.js';
 
 const bigPhotoContainer = document.querySelector('.big-picture');
 const bigPhotoImage = bigPhotoContainer.querySelector('.big-picture__img');
@@ -10,22 +10,33 @@ const socialCommentCount = bigPhotoContainer.querySelector('.social__comment-cou
 const commentsLoader = bigPhotoContainer.querySelector('.comments-loader');
 const bigPhotoCloseButton = bigPhotoContainer.querySelector('#picture-cancel');
 
-// const isEscEvent = (evt) => evt.key === 'Escape' || evt.key === 'Esc';
+const isEscEvent = (evt) => evt.key === 'Escape' || evt.key === 'Esc';
 // const isEnterEvent = (evt) => evt.key === 'Enter';
 
 
 const openPhotoPreview = () => {
   bigPhotoContainer.classList.remove('hidden');
-  // document.addEventListener('keydown', onEscCloseModal);
+  document.body.classList.add('modal-open');
 };
 const closePhotoPreview = () => {
   bigPhotoContainer.classList.add('hidden');
-  // document.removeEventListener('keydown', onEscCloseModal);
+  document.body.classList.remove('modal-open');
+  // bigPhotoCloseButton.removeEventListener('click', onClickCloseButton);
+  // document.removeEventListener('keydown', onPressEsc);
 };
 
-const onClickCloseModal = () => closePhotoPreview();
-// const onEscCloseModal = () => {
-//   if (isEscEvent) {
+const onClickCloseButton = () => closePhotoPreview();
+
+const onPressEsc = (evt) => {
+  if (isEscEvent(evt)) {
+    evt.preventDefault();
+    closePhotoPreview();
+  }
+};
+
+// const onPressEnter = (evt) => {
+//   if (isEnterEvent(evt)) {
+//     evt.preventDefault();
 //     closePhotoPreview();
 //   }
 // };
@@ -61,10 +72,10 @@ const showFullSizePhoto = (thumbnail) => {
   socialСomments.appendChild(generateComments(thumbnail.comments));
   socialCommentCount.classList.add('hidden');
   commentsLoader.classList.add('hidden');
-  document.body.classList.add('modal-open');
+
+  bigPhotoCloseButton.addEventListener('click', onClickCloseButton);
+  // bigPhotoCloseButton.addEventListener('keydown', onPressEnter);
+  document.addEventListener('keydown', onPressEsc);
 };
 
-bigPhotoCloseButton.addEventListener('click', onClickCloseModal);
-
-
-showFullSizePhoto(posts[20]);
+export { showFullSizePhoto };
