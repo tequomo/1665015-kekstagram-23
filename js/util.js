@@ -27,4 +27,13 @@ const getRandomLengthArray = (sourceArray, maxLength) => {
   return sourceArray.slice(0, getRandomInteger(1, maxLength));
 };
 
-export { getRandomInteger, getRandomLengthArray, checkMaxLength };
+const openPopup = (node) => {
+  node.classList.remove('hidden');
+  document.body.classList.add('modal-open');
+};
+const closePopup = (node) => {
+  node.classList.add('hidden');
+  document.body.classList.remove('modal-open');
+};
+
+export { getRandomInteger, getRandomLengthArray, checkMaxLength, openPopup, closePopup };

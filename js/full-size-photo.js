@@ -1,4 +1,5 @@
 import './data.js';
+import { openPopup, closePopup } from './util.js';
 
 const bigPhotoContainer = document.querySelector('.big-picture');
 const bigPhotoImage = bigPhotoContainer.querySelector('.big-picture__img');
@@ -14,23 +15,25 @@ const isEscEvent = (evt) => evt.key === 'Escape' || evt.key === 'Esc';
 // const isEnterEvent = (evt) => evt.key === 'Enter';
 
 
-const openPhotoPreview = () => {
-  bigPhotoContainer.classList.remove('hidden');
-  document.body.classList.add('modal-open');
-};
-const closePhotoPreview = () => {
-  bigPhotoContainer.classList.add('hidden');
-  document.body.classList.remove('modal-open');
-  // bigPhotoCloseButton.removeEventListener('click', onClickCloseButton);
-  // document.removeEventListener('keydown', onPressEsc);
-};
+// const openPhotoPreview = () => {
+//   bigPhotoContainer.classList.remove('hidden');
+//   document.body.classList.add('modal-open');
+// };
+// const closePhotoPreview = () => {
+//   bigPhotoContainer.classList.add('hidden');
+//   document.body.classList.remove('modal-open');
+//   // bigPhotoCloseButton.removeEventListener('click', onClickCloseButton);
+//   // document.removeEventListener('keydown', onPressEsc);
+// };
 
-const onClickCloseButton = () => closePhotoPreview();
+
+// const onClickCloseButton = () => closePhotoPreview();
+const onClickCloseButton = () => closePopup(bigPhotoContainer);
 
 const onPressEsc = (evt) => {
   if (isEscEvent(evt)) {
     evt.preventDefault();
-    closePhotoPreview();
+    closePopup(bigPhotoContainer);
   }
 };
 
@@ -63,7 +66,7 @@ const generateComments = (dataSource) => {
 };
 
 const showFullSizePhoto = (thumbnail) => {
-  openPhotoPreview();
+  openPopup(bigPhotoContainer);
   bigPhotoImage.children[0].src = thumbnail.url;
   likesCount.textContent = thumbnail.likes;
   commentsCount.textContent = thumbnail.comments.length;
