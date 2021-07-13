@@ -36,4 +36,6 @@ const closePopup = (node) => {
   document.body.classList.remove('modal-open');
 };
 
-export { getRandomInteger, getRandomLengthArray, checkMaxLength, openPopup, closePopup };
+const isEscEvent = (evt) => evt.key === 'Escape' || evt.key === 'Esc';
+
+export { getRandomInteger, getRandomLengthArray, checkMaxLength, openPopup, closePopup, isEscEvent };
