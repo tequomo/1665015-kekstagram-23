@@ -1,5 +1,5 @@
 import { uploadForm } from './image-upload.js';
-import { throttle } from './util.js';
+import { debounce } from './util.js';
 
 // const isValidNewPicture = (curFile) => {
 //   const formats = ['image/jpeg', 'image/jpeg', 'image/png'];
@@ -19,7 +19,7 @@ import { throttle } from './util.js';
 const MIN_HASHTAG_LENGTH = 1;
 const MAX_HASHTAG_LENGTH = 20;
 const HASHTAG_COUNT = 5;
-const CHECK_DELAY = 1000;
+const CHECK_DELAY = 500;
 
 const hashtagField = uploadForm.querySelector('.text__hashtags');
 
@@ -29,22 +29,36 @@ const validateHashtag = (value) => {
   const re = /^#[A-Za-zА-Яа-я0-9]{1,19}$/gi;
   const reSpace = /\b#\b/;
   // re.test('#хэштег'); // > true
-  const hashtags = value.toLowerCase().split([' ']);
+  const hashtags = value.trim().toLowerCase().split([' ']);
 
-  if(hashtags.length > HASHTAG_COUNT) {
-    alertString = 'Вы превысили допустимое количество хештегов\n';
+  if (!value) {
+    alertString = '';
   }
 
   hashtags.forEach((tag) => {
-    // console.log(re.test(tag));
-    alertString += (re.test(tag)) ? '' : (reSpace.test(tag) ? 'Поставьте пробел между хештегами\n' : 'Вы ввели недопустимый хештег\n');
+    console.log(re.test(tag));
+    console.log(hashtags);
+    // alertString += (re.test(tag)) ? '' : (reSpace.test(tag) ? 'Поставьте пробел между хештегами\n' : 'Вы ввели недопустимый хештег\n');
+    if (re.test(tag)) {
+      // console.log(re.test(tag));
+      alertString = '';
+    }
+    // if (reSpace.test(tag)) {
+    //   alertString += 'Поставьте пробел между хештегами\n';
+    // }
+    else
+    {alertString = 'Вы ввели недопустимый хештег\n';}
   });
+
+  if (hashtags.length > HASHTAG_COUNT) {
+    alertString += 'Вы превысили допустимое количество хештегов\n';
+  }
 
   hashtagField.setCustomValidity(alertString);
   hashtagField.reportValidity();
 };
 
 
-hashtagField.addEventListener('input', throttle(() => {
+hashtagField.addEventListener('input', debounce(() => {
   validateHashtag(hashtagField.value);
 }, CHECK_DELAY));
