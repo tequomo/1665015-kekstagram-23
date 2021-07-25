@@ -70,5 +70,6 @@ function throttle (callback, delayBetweenFrames) {
 }
 
 const isEscEvent = (evt) => evt.key === 'Escape' || evt.key === 'Esc';
+const onFocusNode = (node) =>  document.activeElement === node;
 
-export { getRandomInteger, getRandomLengthArray, checkMaxLength, openPopup, closePopup, isEscEvent, debounce, throttle };
+export { getRandomInteger, getRandomLengthArray, checkMaxLength, openPopup, closePopup, isEscEvent, debounce, throttle, onFocusNode };

@@ -1,5 +1,7 @@
 import './data.js';
-import { openPopup, closePopup } from './util.js';
+import { openPopup, closePopup, isEscEvent } from './util.js';
+
+const MAX_COMMENT_COUNT = 5;
 
 const bigPhotoContainer = document.querySelector('.big-picture');
 const bigPhotoImage = bigPhotoContainer.querySelector('.big-picture__img');
@@ -11,7 +13,7 @@ const socialCommentCount = bigPhotoContainer.querySelector('.social__comment-cou
 const commentsLoader = bigPhotoContainer.querySelector('.comments-loader');
 const bigPhotoCloseButton = bigPhotoContainer.querySelector('#picture-cancel');
 
-const isEscEvent = (evt) => evt.key === 'Escape' || evt.key === 'Esc';
+// const isEscEvent = (evt) => evt.key === 'Escape' || evt.key === 'Esc';
 // const isEnterEvent = (evt) => evt.key === 'Enter';
 
 
@@ -65,6 +67,11 @@ const generateComments = (dataSource) => {
   return comments;
 };
 
+const showComments = (comments) => {
+
+
+};
+
 const showFullSizePhoto = (thumbnail) => {
   openPopup(bigPhotoContainer);
   bigPhotoImage.children[0].src = thumbnail.url;
@@ -73,8 +80,8 @@ const showFullSizePhoto = (thumbnail) => {
   socialCaption.textContent = thumbnail.description;
   socialСomments.innerHTML = '';
   socialСomments.appendChild(generateComments(thumbnail.comments));
-  socialCommentCount.classList.add('hidden');
-  commentsLoader.classList.add('hidden');
+  // socialCommentCount.classList.add('hidden');
+  // commentsLoader.classList.add('hidden');
 
   bigPhotoCloseButton.addEventListener('click', onClickCloseButton);
   // bigPhotoCloseButton.addEventListener('keydown', onPressEnter);

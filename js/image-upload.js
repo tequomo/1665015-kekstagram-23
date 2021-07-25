@@ -1,4 +1,7 @@
-import { closePopup, isEscEvent, openPopup } from './util.js';
+// import { commentField, hashtagField } from './form.js';
+// import { isActiveInputs } from './form.js';
+import { commentField, hashtagField } from './form.js';
+import { closePopup, isEscEvent, openPopup, onFocusNode } from './util.js';
 
 
 const uploadForm = document.querySelector('.img-upload__form');
@@ -11,8 +14,11 @@ const photoToolCloseButton = uploadForm.querySelector('#upload-cancel');
 const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
 const DEFAULT_PHOTO = 'img/upload-default-image.jpg';
 
+
 const resetPhoto = () => {
   photoContainer.src = DEFAULT_PHOTO;
+  photoChooser.value = '';
+  uploadForm.reset();
 };
 
 function onClickPhotoToolButton (evt) {
@@ -24,7 +30,9 @@ function onClickPhotoToolButton (evt) {
 }
 
 function onEscPhotoTool (evt) {
-  if (isEscEvent(evt)) {
+  const isActiveInputs = onFocusNode(hashtagField) || onFocusNode(commentField);
+
+  if (isEscEvent(evt) && !isActiveInputs) {
     closePopup(editPhotoTool);
     resetPhoto();
     document.removeEventListener('keydown', onEscPhotoTool);

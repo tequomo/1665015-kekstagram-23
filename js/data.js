@@ -74,5 +74,6 @@ const createPost = (currentIndex) => ({
 const getPostsArray = (amount) => new Array(amount).fill(null).map((_, index) => createPost(index));
 
 const posts = getPostsArray(POSTS_COUNT);
+// console.log(posts);
 
 export { posts };
